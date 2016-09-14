@@ -1,4 +1,4 @@
 licensingservice:
-    image: tmx-licensing-service:chapter2
+    image: johncarnell/tmx-licensing-service:chapter2
     ports:
       - "8080:8080"
