@@ -38,27 +38,51 @@
     </properties>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>0.2.3</version>
-                <configuration>
-                    <imageName>${docker.image.name}:${docker.image.tag}</imageName>
-                    <dockerDirectory>src/main/docker</dockerDirectory>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+       <plugins>
+           <!-- We use the Resources plugin to filer Dockerfile and run.sh, it inserts actual JAR filename -->
+           <!-- The final Dockerfile will be created in target/dockerfile/Dockerfile -->
+           <plugin>
+               <artifactId>maven-resources-plugin</artifactId>
+               <executions>
+                   <execution>
+                       <id>copy-resources</id>
+                       <!-- here the phase you need -->
+                       <phase>validate</phase>
+                       <goals>
+                           <goal>copy-resources</goal>
+                       </goals>
+                       <configuration>
+                           <outputDirectory>${basedir}/target/dockerfile</outputDirectory>
+                           <resources>
+                               <resource>
+                                   <directory>src/main/docker</directory>
+                                   <filtering>true</filtering>
+                               </resource>
+                           </resources>
+                       </configuration>
+                   </execution>
+               </executions>
+           </plugin>
+           <plugin>
+               <groupId>com.spotify</groupId>
+               <artifactId>docker-maven-plugin</artifactId>
+               <version>0.4.10</version>
+               <configuration>
+                   <imageName>${docker.image.name}:${docker.image.tag}</imageName>
+                   <dockerDirectory>${basedir}/target/dockerfile</dockerDirectory>
+                   <resources>
+                       <resource>
+                           <targetPath>/</targetPath>
+                           <directory>${project.build.directory}</directory>
+                           <include>${project.build.finalName}.jar</include>
+                       </resource>
+                   </resources>
+               </configuration>
+           </plugin>
+           <plugin>
+               <groupId>org.springframework.boot</groupId>
+               <artifactId>spring-boot-maven-plugin</artifactId>
+           </plugin>
+       </plugins>
+   </build>
 </project>
