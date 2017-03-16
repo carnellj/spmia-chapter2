@@ -1,5 +1,5 @@
 # Introduction
-Welcome to Spring Microservices in Action, Chapter 2.  Chapter 2 focuses on what exactly is a microservice and goes into more detail on how to build a microservice using Spring Boot.  This chapter in this code focuses on building a single service called the licensing service.  After you have compiled and started the code you should have a service called the licensing service.
+Welcome to Spring Microservices in Action, Chapter 2.  Chapter 2 focuses on what exactly is a microservice and goes into more detail on how to build a microservice using Spring Boot.  This chapter in this code focuses on building a single service called the licensing service.  After you have compiled and started the code you should have a service called the licensing service up and running.
 
 # Software needed
 1.	Apache Maven (http://apache.maven.org). I used version 3.3.9 of the Maven. I chose Maven because, while other build tools like Gradle are extremely popular, Maven is still the pre-dominate build tool in use in the Java ecosystem. All of the code examples in this book have been compiled with Java version 1.8.
@@ -15,7 +15,7 @@ Run the following maven command.  This command will execute the [Spotify docker 
 
 If everything builds successfully you should see a message indicating that the build was successful.
 
-# Running the Application for Chapter 2
+# Running the services for Chapter 2
 
 Now we are going to use docker-compose to start the actual image.  To start the docker image,
 change to the docker-compose directory in your chapter 2 source code.  Issue the following docker-compose command:
